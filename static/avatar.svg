@@ -1,0 +1,17 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="dawn" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#06B6D4"/>
+            <stop offset="100%" stop-color="#3B82F6"/>
+        </linearGradient>
+        <radialGradient id="dewdrop" cx="30%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#F0FDFA"/>
+            <stop offset="100%" stop-color="#5EEAD4"/>
+        </radialGradient>
+    </defs>
+    <!-- 晨露盏 -->
+    <path d="M5 11 Q8 5 11 11" stroke="url(#dawn)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+    <!-- 露珠 -->
+    <circle cx="8" cy="7" r="1.8" fill="url(#dewdrop)"/>
+    <circle cx="7.5" cy="6.5" r="0.4" fill="#FFFFFF" opacity="0.95"/>
+</svg>
