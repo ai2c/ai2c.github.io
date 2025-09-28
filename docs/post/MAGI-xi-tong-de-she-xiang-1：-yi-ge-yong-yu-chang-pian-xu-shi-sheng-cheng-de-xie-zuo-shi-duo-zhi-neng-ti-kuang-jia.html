@@ -10,18 +10,34 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="MAGI System: A Multi-Agent Framework for Collaborative Long-Form Narrative Generation
-摘要 (Abstract)
+<meta name="description" content="
+---
+
+```markdown
+# MAGI系统设想1：一个用于长篇叙事生成的协作式多智能体框架
+
+## MAGI System: A Multi-Agent Framework for Collaborative Long-Form Narrative Generation
+
+## 摘要 (Abstract)
+
 长篇叙事创作，如连载小说，对当前的大型语言模型（LLM）构成了严峻挑战。">
 <meta property="og:title" content="MAGI系统的设想1：一个用于长篇叙事生成的协作式多智能体框架">
-<meta property="og:description" content="MAGI System: A Multi-Agent Framework for Collaborative Long-Form Narrative Generation
-摘要 (Abstract)
+<meta property="og:description" content="
+---
+
+```markdown
+# MAGI系统设想1：一个用于长篇叙事生成的协作式多智能体框架
+
+## MAGI System: A Multi-Agent Framework for Collaborative Long-Form Narrative Generation
+
+## 摘要 (Abstract)
+
 长篇叙事创作，如连载小说，对当前的大型语言模型（LLM）构成了严峻挑战。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://ai2c.github.io/post/MAGI-xi-tong-de-she-xiang-1%EF%BC%9A-yi-ge-yong-yu-chang-pian-xu-shi-sheng-cheng-de-xie-zuo-shi-duo-zhi-neng-ti-kuang-jia.html">
 <meta property="og:image" content="https://ai2c.github.io/avatar.svg">
 <title>MAGI系统的设想1：一个用于长篇叙事生成的协作式多智能体框架</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -45,7 +61,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
 </style>
 <style>body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; } .post-item { transition: all 0.3s ease; } .post-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }</style>
 
@@ -77,82 +103,119 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>MAGI System: A Multi-Agent Framework for Collaborative Long-Form Narrative Generation<br>
-摘要 (Abstract)<br>
-长篇叙事创作，如连载小说，对当前的大型语言模型（LLM）构成了严峻挑战。单个LLM由于上下文窗口限制、缺乏长期规划能力以及内在的“任务完成”倾向，往往难以维持故事的一致性、深度和持续的创造力，导致情节趋于扁平化和过早收尾。本文提出了一个名为MAGI（Multi-Agent Generative Intelligence，多智能体生成式智能）的系统框架，旨在解决这一核心问题。MAGI系统通过将创作任务分解给三个专职的、相互协作的AI智能体——世界引擎（World Engine）、情节引擎（Plot Engine）和角色引擎（Character Engine），将单一的、发散式的生成过程转化为一个结构化的、动态演进的模拟过程。该框架不仅能有效规避AI幻觉和逻辑矛盾，还能通过智能体间的互动涌现出复杂而有机的情节，从而为AI辅助长篇叙事创作提供一个可持续、可扩展的解决方案。</p>
-<p>引言 (Introduction)<br>
-1.1 背景：LLM在长篇叙事创作中的困境<br>
-大型语言模型（如GPT系列）在短文本生成方面表现卓越，但在万字以上的长篇叙事中面临以下核心挑战：</p>
-<p>上下文漂移 (Context Drift)：随着文本变长，模型会逐渐忘记早期的关键设定和情节线索。<br>
-情节坍缩 (Plot Collapse)：模型为了寻求叙事闭环，倾向于快速解决冲突，导致故事过早结束，缺乏足够的铺垫和发展。<br>
-角色扁平化 (Character Flattening)：单一模型难以持续维持一个角色的复杂动机、独特口吻和行为模式，导致角色前后行为不一。<br>
-作者经验瓶颈 (Author's Experience Bottleneck)：人类作者的创作受限于个人经验和知识广度。虽然LLM知识渊博，但缺乏将知识转化为可信“经验”的机制。<br>
-1.2 核心思想：从“单一作者”到“协作剧组”<br>
-我们的核心思想是借鉴现实世界中电影剧组或桌面角色扮演游戏（TRPG）的协作模式，取代传统的“单一作者”模式。在这个模式中，不同的角色各司其职：</p>
-<p>编剧/导演 负责制定世界观和故事大纲。<br>
-地下城主 (Dungeon Master) 负责推动情节，扮演NPC。<br>
-演员 负责演绎自己的角色。<br>
-MAGI系统正是这一思想的数字化实现，它将LLM从一个全能但混乱的“创作者”，转变为一个由多个专注的“专家”组成的虚拟剧组。正是这种智能体间的协作，使得复杂而有趣的叙事能够涌现。</p>
-<p>MAGI系统框架 (The MAGI Framework)<br>
-MAGI系统由一个人类导演（Human Director）和三个核心AI智能体构成。</p>
-<p>MAGI System Architecture<br>
-Parse error on line 2:<br>
-...ph TD    A[人类导演<br>(Human Director)] --<br>
-----------------------^<br>
-Expecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'PS'<br>
-图1: MAGI系统架构与数据流示意图</p>
-<p>2.1 人类导演 (Human Director)<br>
-人类用户在系统中的角色。负责：</p>
-<p>创世 (Genesis)：定义初始的世界圣经 (World Bible)和角色卡 (Character Sheet)。<br>
-宏观调控 (Macro-Control)：启动情节、引入重大转折、修正AI生成的不合理内容。<br>
-仲裁 (Arbitration)：在AI智能体之间出现逻辑冲突时进行决策。<br>
-2.2 世界引擎 (World Engine) - “世界的史官与法则守护者”<br>
-职责：维护世界观的一致性。它是一个基于初始“世界圣经”的权威知识库。<br>
-功能：</p>
-<p>一致性校验 (Consistency Check)：当其他引擎生成的内容可能与世界设定冲突时（例如，在一个无魔世界里使用了火球术），世界引擎可以被调用来发出警告。<br>
-细节查询 (Detail Retrieval)：为情节引擎和角色引擎提供关于世界法则、历史、地理等细节的精确回答。<br>
-实现原理：可以通过RAG（检索增强生成）技术，将“世界圣经”文档作为知识库，实现对设定的精准查询。</p>
-<p>2.3 情节引擎 (Plot Engine) - “命运的织网者与地下城主”<br>
-职责：扮演DM的角色，推动故事发展。它是故事的“外部动力”。<br>
-功能：</p>
-<p>场景生成 (Scene Generation)：根据人类导演的指令或角色引擎的行动，生成环境描述、事件和NPC。<br>
-动态响应 (Dynamic Response)：模拟世界对角色行动的反应，创造新的挑战和机遇。<br>
-叙事节奏控制 (Pacing Control)：在人类导演的指导下，控制故事的节奏，引入悬念和高潮。<br>
-输入：角色引擎的行动描述。<br>
-输出：新的场景描述和世界状态的改变。</p>
-<p>2.4 角色引擎 (Character Engine) - “拥有灵魂的演员”<br>
-职责：完全模拟主角的行为模式。它是故事的“内部动力”。<br>
-功能：</p>
-<p>沉浸式扮演 (Immersive Role-playing)：基于“角色卡”中的性格、目标和背景，对情节引擎给出的场景做出反应。<br>
-决策制定 (Decision Making)：在面临选择时，以符合角色逻辑的方式做出决定。<br>
-情感与成长模拟 (Emotion &amp; Growth Simulation)：角色的状态（如疲劳、愤怒、快乐）可以被追踪，并在长期互动中展现角色的成长弧光。<br>
-输入：情节引擎的场景描述。<br>
-输出：角色的内心独白、对话和具体行动。</p>
-<ol start="3">
-<li>工作流程与涌现机制 (Workflow and Emergent Narrative)<br>
-MAGI系统的工作流程是一个持续的“行动-反应”循环 (Action-Reaction Loop)：</li>
+<div class="markdown-body" id="postBody"><hr>
+<div class="highlight highlight-text-md"><pre class="notranslate"><span class="pl-mh"># <span class="pl-en">MAGI系统设想1：一个用于长篇叙事生成的协作式多智能体框架</span></span>
+
+<span class="pl-mh">## <span class="pl-en">MAGI System: A Multi-Agent Framework for Collaborative Long-Form Narrative Generation</span></span>
+
+<span class="pl-mh">## <span class="pl-en">摘要 (Abstract)</span></span>
+
+长篇叙事创作，如连载小说，对当前的大型语言模型（LLM）构成了严峻挑战。单个LLM由于上下文窗口限制、缺乏长期规划能力以及内在的“任务完成”倾向，往往难以维持故事的一致性、深度和持续的创造力，导致情节趋于扁平化和过早收尾。本文提出了一个名为<span class="pl-s">**</span>MAGI（Multi-Agent Generative Intelligence，多智能体生成式智能）<span class="pl-s">**</span>的系统框架，旨在解决这一核心问题。MAGI系统通过将创作任务分解给三个专职的、相互协作的AI智能体——<span class="pl-s">**</span>世界引擎（World Engine）<span class="pl-s">**</span>、<span class="pl-s">**</span>情节引擎（Plot Engine）<span class="pl-s">**</span>和<span class="pl-s">**</span>角色引擎（Character Engine）<span class="pl-s">**</span>，将单一的、发散式的生成过程转化为一个结构化的、动态演进的模拟过程。该框架不仅能有效规避AI幻觉和逻辑矛盾，还能通过智能体间的互动涌现出复杂而有机的情节，从而为AI辅助长篇叙事创作提供一个可持续、可扩展的解决方案。
+
+<span class="pl-mh">## <span class="pl-en">引言 (Introduction)</span></span>
+
+<span class="pl-mh">### <span class="pl-en">1.1 背景：LLM在长篇叙事创作中的困境</span></span>
+
+大型语言模型（如GPT系列）在短文本生成方面表现卓越，但在万字以上的长篇叙事中面临以下核心挑战：
+
+<span class="pl-v">*</span>   <span class="pl-s">**</span>上下文漂移 (Context Drift)<span class="pl-s">**</span>：随着文本变长，模型会逐渐忘记早期的关键设定和情节线索。
+<span class="pl-v">*</span>   <span class="pl-s">**</span>情节坍缩 (Plot Collapse)<span class="pl-s">**</span>：模型为了寻求叙事闭环，倾向于快速解决冲突，导致故事过早结束，缺乏足够的铺垫和发展。
+<span class="pl-v">*</span>   <span class="pl-s">**</span>角色扁平化 (Character Flattening)<span class="pl-s">**</span>：单一模型难以持续维持一个角色的复杂动机、独特口吻和行为模式，导致角色前后行为不一。
+<span class="pl-v">*</span>   <span class="pl-s">**</span>作者经验瓶颈 (Author's Experience Bottleneck)<span class="pl-s">**</span>：人类作者的创作受限于个人经验和知识广度。虽然LLM知识渊博，但缺乏将知识转化为可信“经验”的机制。
+
+<span class="pl-mh">### <span class="pl-en">1.2 核心思想：从“单一作者”到“协作剧组”</span></span>
+
+我们的核心思想是借鉴现实世界中电影剧组或桌面角色扮演游戏（TRPG）的协作模式，取代传统的“单一作者”模式。在这个模式中，不同的角色各司其职：
+
+<span class="pl-v">*</span>   <span class="pl-s">**</span>编剧/导演<span class="pl-s">**</span> 负责制定世界观和故事大纲。
+<span class="pl-v">*</span>   <span class="pl-s">**</span>地下城主 (Dungeon Master)<span class="pl-s">**</span> 负责推动情节，扮演NPC。
+<span class="pl-v">*</span>   <span class="pl-s">**</span>演员<span class="pl-s">**</span> 负责演绎自己的角色。
+
+MAGI系统正是这一思想的数字化实现，它将LLM从一个全能但混乱的“创作者”，转变为一个由多个专注的“专家”组成的虚拟剧组。正是这种智能体间的<span class="pl-s">**</span>协作<span class="pl-s">**</span>，使得复杂而有趣的叙事能够<span class="pl-s">**</span>涌现<span class="pl-s">**</span>。
+
+<span class="pl-mh">## <span class="pl-en">MAGI系统框架 (The MAGI Framework)</span></span>
+
+MAGI系统由一个<span class="pl-s">**</span>人类导演（Human Director）<span class="pl-s">**</span>和三个核心AI智能体构成。
+
+<span class="pl-mh">### <span class="pl-en">MAGI System Architecture</span></span>
+
+<span class="pl-s">```</span><span class="pl-en">mermaid</span><span class="pl-c1"></span>
+<span class="pl-c1">graph TD</span>
+<span class="pl-c1">    A[人类导演&lt;br&gt;(Human Director)] --&gt; B(情节引擎&lt;br&gt;(Plot Engine))</span>
+<span class="pl-c1">    A --&gt; C(世界引擎&lt;br&gt;(World Engine))</span>
+<span class="pl-c1">    A --&gt; D(角色引擎&lt;br&gt;(Character Engine))</span>
+<span class="pl-c1">    B -- 场景生成/世界演化 --&gt; D</span>
+<span class="pl-c1">    D -- 角色行动 --&gt; B</span>
+<span class="pl-c1">    B -- 查询设定 --&gt; C</span>
+<span class="pl-c1">    D -- 查询设定 --&gt; C</span>
+<span class="pl-c1">    style A fill:#f9f,stroke:#333,stroke-width:2px;</span>
+<span class="pl-c1">    style B fill:#bbf,stroke:#333,stroke-width:2px;</span>
+<span class="pl-c1">    style C fill:#bfb,stroke:#333,stroke-width:2px;</span>
+<span class="pl-c1">    style D fill:#ffb,stroke:#333,stroke-width:2px;</span></pre></div>
+<p><em>图1: MAGI系统架构与数据流示意图</em></p>
+<h3>2.1 人类导演 (Human Director)</h3>
+<p>人类用户在系统中的角色。负责：</p>
+<ul>
+<li><strong>创世 (Genesis)</strong>：定义初始的<strong>世界圣经 (World Bible)和角色卡 (Character Sheet)</strong>。</li>
+<li><strong>宏观调控 (Macro-Control)</strong>：启动情节、引入重大转折、修正AI生成的不合理内容。</li>
+<li><strong>仲裁 (Arbitration)</strong>：在AI智能体之间出现逻辑冲突时进行决策。</li>
+</ul>
+<h3>2.2 世界引擎 (World Engine) - “世界的史官与法则守护者”</h3>
+<p><strong>职责</strong>：维护世界观的一致性。它是一个基于初始“世界圣经”的权威知识库。<br>
+<strong>功能</strong>：</p>
+<ul>
+<li><strong>一致性校验 (Consistency Check)</strong>：当其他引擎生成的内容可能与世界设定冲突时（例如，在一个无魔世界里使用了火球术），世界引擎可以被调用来发出警告。</li>
+<li><strong>细节查询 (Detail Retrieval)</strong>：为情节引擎和角色引擎提供关于世界法则、历史、地理等细节的精确回答。</li>
+</ul>
+<p><strong>实现原理</strong>：可以通过RAG（检索增强生成）技术，将“世界圣经”文档作为知识库，实现对设定的精准查询。</p>
+<h3>2.3 情节引擎 (Plot Engine) - “命运的织网者与地下城主”</h3>
+<p><strong>职责</strong>：扮演DM的角色，推动故事发展。它是故事的“外部动力”。<br>
+<strong>功能</strong>：</p>
+<ul>
+<li><strong>场景生成 (Scene Generation)</strong>：根据人类导演的指令或角色引擎的行动，生成环境描述、事件和NPC。</li>
+<li><strong>动态响应 (Dynamic Response)</strong>：模拟世界对角色行动的反应，创造新的挑战和机遇。</li>
+<li><strong>叙事节奏控制 (Pacing Control)</strong>：在人类导演的指导下，控制故事的节奏，引入悬念和高潮。</li>
+</ul>
+<p><strong>输入</strong>：角色引擎的行动描述。<br>
+<strong>输出</strong>：新的场景描述和世界状态的改变。</p>
+<h3>2.4 角色引擎 (Character Engine) - “拥有灵魂的演员”</h3>
+<p><strong>职责</strong>：完全模拟主角的行为模式。它是故事的“内部动力”。<br>
+<strong>功能</strong>：</p>
+<ul>
+<li><strong>沉浸式扮演 (Immersive Role-playing)</strong>：基于“角色卡”中的性格、目标和背景，对情节引擎给出的场景做出反应。</li>
+<li><strong>决策制定 (Decision Making)</strong>：在面临选择时，以符合角色逻辑的方式做出决定。</li>
+<li><strong>情感与成长模拟 (Emotion &amp; Growth Simulation)</strong>：角色的状态（如疲劳、愤怒、快乐）可以被追踪，并在长期互动中展现角色的成长弧光。</li>
+</ul>
+<p><strong>输入</strong>：情节引擎的场景描述。<br>
+<strong>输出</strong>：角色的内心独白、对话和具体行动。</p>
+<h2>3. 工作流程与涌现机制 (Workflow and Emergent Narrative)</h2>
+<p>MAGI系统的工作流程是一个持续的**“行动-反应”循环 (Action-Reaction Loop)**：</p>
+<ol>
+<li><strong>启动 (Initiation)</strong>：人类导演向情节引擎下达初始指令（“故事开始于一个暴风雨的夜晚……”）。</li>
+<li><strong>世界呈现 (World Presentation)</strong>：情节引擎生成初始场景，并将其传递给角色引擎。</li>
+<li><strong>角色行动 (Character Action)</strong>：角色引擎根据自身设定，对场景做出反应，并将行动结果反馈给情节引擎。</li>
+<li><strong>世界演化 (World Evolution)</strong>：情节引擎模拟世界对角色行动的反馈，生成新的场景和挑战。</li>
+<li><strong>循环 (Loop)</strong>：重复步骤2-4。在这个过程中，两个引擎随时可以向世界引擎查询设定，以确保逻辑自洽。</li>
 </ol>
-<p>启动 (Initiation)：人类导演向情节引擎下达初始指令（“故事开始于一个暴风雨的夜晚……”）。<br>
-世界呈现 (World Presentation)：情节引擎生成初始场景，并将其传递给角色引擎。<br>
-角色行动 (Character Action南)：角色引擎根据自身设定，对场景做出反应，并将行动结果反馈给情节引擎。<br>
-世界演化 (World Evolution)：情节引擎模拟世界对角色行动的反馈，生成新的场景和挑战。<br>
-循环 (Loop)：重复步骤2-4。在这个过程中，两个引擎随时可以向世界引擎查询设定，以确保逻辑自洽。<br>
-这种循环机制能够创造出叙事涌现 (Narrative Emergence)——即故事并非被预先规划，而是在各个智能体遵循各自简单规则的互动中，自然地“生长”出来。这种有机性正是连载小说魅力的关键。</p>
-<ol start="4">
-<li>优势与展望 (Advantages and Future Work)<br>
-4.1 核心优势<br>
-可扩展性 (Scalability)：可以轻松扩展以支持多个主角（多个角色引擎）或更复杂的派系互动。<br>
-一致性保障 (Consistency)：专职的世界引擎从根本上解决了上下文漂移问题。<br>
-持续创作力 (Sustainable Creativity)：通过分解任务，避免了单一模型的思维枯竭，为无限连载提供了可能。<br>
-人机协同 (Human-AI Collaboration)：人类作者从繁重的细节描写中解放出来，专注于宏观叙事和创意决策，成为真正的“导演”。<br>
-4.2 未来研究方向<br>
-动态角色成长：研究如何让角色引擎的“角色卡”根据故事经历动态更新。<br>
-图形化界面：开发一个用户友好的GUI，集成地图生成、人物关系图谱等可视化工具。<br>
-多模型集成：为不同引擎选用最适合其任务的AI模型（例如，为世界引擎选用知识检索能力强的模型，为情节引擎选用创造力强的模型）。<br>
-开源社区构建：建立一个平台，让用户可以分享和使用彼此创建的“世界圣经”和“角色卡”。<br>
-结论 (Conclusion)<br>
-MAGI系统框架通过引入“关注点分离”和“多智能体协作”的思想，为AI辅助长篇叙事创作提供了一条全新的、充满潜力的路径。它将AI的角色从一个不稳定的“代笔”，转变为一个可靠的、结构化的“虚拟创作团队”。我们相信，这一框架不仅能极大地提升长篇故事的生成质量，也将重新定义未来人类作者与人工智能之间的协作关系。</li>
-</ol></div>
+<p>这种循环机制能够创造出<strong>叙事涌现 (Narrative Emergence)</strong>——即故事并非被预先规划，而是在各个智能体遵循各自简单规则的互动中，自然地“生长”出来。这种有机性正是连载小说魅力的关键。</p>
+<h2>4. 优势与展望 (Advantages and Future Work)</h2>
+<h3>4.1 核心优势</h3>
+<ul>
+<li><strong>可扩展性 (Scalability)</strong>：可以轻松扩展以支持多个主角（多个角色引擎）或更复杂的派系互动。</li>
+<li><strong>一致性保障 (Consistency)</strong>：专职的世界引擎从根本上解决了上下文漂移问题。</li>
+<li><strong>持续创作力 (Sustainable Creativity)</strong>：通过分解任务，避免了单一模型的思维枯竭，为无限连载提供了可能。</li>
+<li><strong>人机协同 (Human-AI Collaboration)</strong>：人类作者从繁重的细节描写中解放出来，专注于宏观叙事和创意决策，成为真正的“导演”。</li>
+</ul>
+<h3>4.2 未来研究方向</h3>
+<ul>
+<li><strong>动态角色成长</strong>：研究如何让角色引擎的“角色卡”根据故事经历动态更新。</li>
+<li><strong>图形化界面</strong>：开发一个用户友好的GUI，集成地图生成、人物关系图谱等可视化工具。</li>
+<li><strong>多模型集成</strong>：为不同引擎选用最适合其任务的AI模型（例如，为世界引擎选用知识检索能力强的模型，为情节引擎选用创造力强的模型）。</li>
+<li><strong>开源社区构建</strong>：建立一个平台，让用户可以分享和使用彼此创建的“世界圣经”和“角色卡”。</li>
+</ul>
+<h2>结论 (Conclusion)</h2>
+<p>MAGI系统框架通过引入**“关注点分离”<strong>和</strong>“多智能体协作”**的思想，为AI辅助长篇叙事创作提供了一条全新的、充满潜力的路径。它将AI的角色从一个不稳定的“代笔”，转变为一个可靠的、结构化的“虚拟创作团队”。我们相信，这一框架不仅能极大地提升长篇故事的生成质量，也将重新定义未来人类作者与人工智能之间的协作关系。</p>
+<pre class="notranslate"><code class="notranslate"></code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;">✨ 感谢阅读 | 转载无需注明出处</div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
@@ -177,7 +240,7 @@ if("09/04/2025"!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -250,7 +313,70 @@ function iFrameLoading(){
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
 
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
 
 </script>
 
