@@ -1,10 +1,7 @@
-
-# MAGI 系统的设想2：一个用于长篇叙事生成的协作式多智能体框架
-
 ## 1. 扩展后的 MAGI 2.0 架构
 
 ![MAGI 2.0 System Architecture](placeholder_for_image_link_or_description)
-*图1: 扩展后的 MAGI 2.0 系统架构示意图（请在此处添加实际的架构图链接或简要说明）*
+*图1: 扩展后的 MAGI 2.0 系统架构示意图*
 
 ### 1.1. 核心引擎 (Core Engines) - 保持不变
 
